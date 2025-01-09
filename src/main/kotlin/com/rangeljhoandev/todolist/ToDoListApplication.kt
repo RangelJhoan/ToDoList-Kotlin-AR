@@ -1,4 +1,4 @@
-package com.jmrangeldev.todolist
+package com.rangeljhoandev.todolist
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

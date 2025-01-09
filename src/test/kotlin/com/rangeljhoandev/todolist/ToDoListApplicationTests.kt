@@ -1,4 +1,4 @@
-package com.jmrangeldev.todolist
+package com.rangeljhoandev.todolist
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
