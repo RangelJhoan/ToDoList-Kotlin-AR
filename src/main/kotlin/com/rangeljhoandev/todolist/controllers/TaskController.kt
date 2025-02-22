@@ -10,12 +10,9 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/task")
 @CrossOrigin("*")
-class TaskController {
+class TaskController(private val taskService: TaskService) {
 
-    @Autowired
-    lateinit var taskService: TaskService
-
-    @GetMapping("/all")
+    @GetMapping("/")
     fun getAllTasks(): MutableIterable<Task> {
         return taskService.getAllTasks()
     }
@@ -31,7 +28,7 @@ class TaskController {
         return taskService.saveTask(task)
     }
 
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     fun deleteTask(@PathVariable(name = "id") taskId: Long): ResponseEntity<Task> {
         val response = taskService.deleteTaskById(taskId) ?: return ResponseEntity<Task>(HttpStatus.NO_CONTENT)
         return ResponseEntity<Task>(response, HttpStatus.OK)
