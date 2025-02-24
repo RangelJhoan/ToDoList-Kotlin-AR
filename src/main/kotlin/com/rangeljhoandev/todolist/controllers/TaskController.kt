@@ -2,7 +2,6 @@ package com.rangeljhoandev.todolist.controllers
 
 import com.rangeljhoandev.todolist.models.Task
 import com.rangeljhoandev.todolist.services.TaskService
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -24,14 +23,15 @@ class TaskController(private val taskService: TaskService) {
     }
 
     @PostMapping("/save")
-    fun saveTask(@RequestBody task: Task): Task {
-        return taskService.saveTask(task)
+    fun saveTask(@RequestBody task: Task): ResponseEntity<Task?> {
+        val response = taskService.saveTask(task) ?: return ResponseEntity<Task?>(HttpStatus.NO_CONTENT)
+        return ResponseEntity<Task?>(response, HttpStatus.OK)
     }
 
     @DeleteMapping("/{id}")
-    fun deleteTask(@PathVariable(name = "id") taskId: Long): ResponseEntity<Task> {
-        val response = taskService.deleteTaskById(taskId) ?: return ResponseEntity<Task>(HttpStatus.NO_CONTENT)
-        return ResponseEntity<Task>(response, HttpStatus.OK)
+    fun deleteTask(@PathVariable(name = "id") taskId: Long): ResponseEntity<Task?> {
+        val response = taskService.deleteTaskById(taskId) ?: return ResponseEntity<Task?>(HttpStatus.NO_CONTENT)
+        return ResponseEntity<Task?>(response, HttpStatus.OK)
     }
 
 }
